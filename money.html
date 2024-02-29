@@ -18,6 +18,7 @@ integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4Qz
 <p style="font-family:Arial, Helvetica, sans-serif;" id="score">Score is zero.</p>
 <p onclick="help()" style="font-family:Arial, Helvetica, sans-serif;">Click for help.</p>
 <p style="font-family:Arial, Helvetica, sans-serif;" id="help">Help report</p>
+<button onclick="newGame()" class="btn btn-warning" style="margin-bottom: 1%;" >Newgame</button>
 <div class="mx-auto">
 <div class="row">
 <div class="col-sm" style="padding: 0.5%;" id="image0" onclick="check(0)"><img style="border: solid;" src="building.jpg" width="80px" height="80px"></div>
@@ -78,7 +79,31 @@ var lastLocation = 0;
 var fancyCoinLocations = [2, 5, 14, 19, 23, 33];
 var monsterLocation = 20;
 var gameOver = false;
+function newGame()
+{
+  score = 0;
+  const score1 = document.getElementById("score");
+  score1.textContent = `Score is ${score}`;
 
+  locations = 0;
+  const locationsl = document.getElementById("locations");
+  locationsl.textContent = `Number of locations checked is ${locations}`;
+
+  lastLocation = 0;
+  monsterLocation = Math.floor(Math.random() * 35);
+  fancyCoinLocations = Array.from({ length: 6 }, () =>
+      Math.floor(Math.random() * 35)
+  ).filter((value, index, self) => self.indexOf(value) === index);
+
+  gameOver = false;
+
+  for (let i = 0; i < ids.length; i++) {
+      const img = document
+          .getElementById(ids[i])
+          .querySelector('img');
+      img.setAttribute("src", "building.jpg");
+  }
+}
 function check(position)
 {
     if (!gameOver)
