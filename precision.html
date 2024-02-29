@@ -24,12 +24,12 @@
     <script>
         let stopTime = undefined;
         function countdown() {
-            for (let i = 0; i < 5; i++) {
+            countdownstart = Math.floor(Math.random() * 9) + 2;
+            for (let i = 0; i < countdownstart; i++) {
                 setTimeout(() => {
                     document.getElementById('counter').innerHTML = i;
-                }, (4 - i) * 1000);
+                }, (countdownstart - i) * 1000);
             }
-
             setTimeout(() => {
                 if (stopTime === undefined) {
                     document.getElementById('target').textContent = "Too Slow";
