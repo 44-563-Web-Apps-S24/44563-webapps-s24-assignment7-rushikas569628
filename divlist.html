@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Divlist page</title>
+    <style>
+        .flex-container {
+          display: flex;  
+          flex-direction:row;
+          background-color: yellowgreen;
+      }
+    
+    .flex-container > div {  
+      background-color: #f1f1f1; 
+      margin: 10px;  
+      padding: 20px;  
+      font-size: 30px;
+    }
+    
+    @media (max-width: 600px) { 
+         .flex-container{
+             flex-direction:column;
+             background-color: green;
+          }
+        }
+    </style>
+</head>
+<body style="padding: 14px; background-color: aqua;">
+    <h2>Rushika builds lists with divs</h1>
+    <input id="inputText" type="text" placeholder="Enter your item" />
+    <br><br>
+    <div class="flex-container" id="target">
+        <div class="divlist">row item 1</div>   
+        <div class="divlist">row item 2</div>  
+        <div class="divlist">row item 3</div>  
+    </div>
+  
+    <p> Press the button to create an new element of type div and then add it to the container.</p>
+    <button onclick="makeNewDiv()" class="btn btn-success mt-2">Add end</button>
+    <button onclick="addFront()" class="btn btn-success mt-2">Add front</button>
+    <button onclick="remove()" class="btn btn-success mt-2">Remove</button>
+    <button onclick="swapItems()" class="btn btn-success mt-2">Swap</button>
+    <script>
+        function makeNewDiv()
+         {
+            let element = document.createElement("div")
+            const inputText = document.getElementById("inputText").value;
+            element.innerHTML = inputText;
+            element.classList.add("divlist");
+            element.style.color = "Green"
+
+            let container = document.getElementById('target')
+            container.appendChild(element);
+        }
+
+        function addFront() 
+        {
+            let element = document.createElement("div");
+            const inputText = document.getElementById("inputText").value;
+
+            element.innerHTML = inputText;
+            element.classList.add("divlist");
+            element.style.color = "blue";
+
+            let container = document.getElementById("target");
+            container.insertBefore(element, container.firstChild);
+        }
+
+        function remove() 
+        {
+            const divListItems = document.getElementsByClassName("divlist");
+
+            if (divListItems.length > 0) {
+                divListItems[Math.floor(divListItems.length / 2)].remove();
+            }
+        }
+        function swapItems() {
+            const divListItems = document.getElementsByClassName("divlist");
+            const length = divListItems.length;
+            if (length >= 2) {
+                const index1 = Math.floor(Math.random() * length);
+                let index2 = Math.floor(Math.random() * length);
+                while (index2 === index1) {
+                    index2 = Math.floor(Math.random() * length);
+                }
+                const obj1 = divListItems[index1];
+                const obj2 = divListItems[index2];
+                const temp = obj1.nextSibling;
+                obj2.parentNode.insertBefore(obj1, obj2.nextSibling);
+                obj1.parentNode.insertBefore(obj2, temp);
+            }
+        }
+    </script>
+</body>
+
+</html>
